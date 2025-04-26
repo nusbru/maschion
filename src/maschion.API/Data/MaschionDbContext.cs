@@ -1,0 +1,77 @@
+using Microsoft.EntityFrameworkCore;
+using maschion.API.Models;
+
+namespace maschion.API.Data
+{
+    public class MaschionDbContext : DbContext
+    {
+        public MaschionDbContext(DbContextOptions<MaschionDbContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<Profile> Profiles { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Item> Items { get; set; }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Profile>(entity =>
+            {
+                entity.ToTable("Profiles");
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+                entity.Property(e => e.Email).IsRequired().HasMaxLength(150);
+                entity.Property(e => e.PhoneNumber).HasMaxLength(20);
+
+                // PostgreSQL-specific timestamp defaults
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                // Define relationship with Orders (assuming you have a navigation property)
+                entity.HasMany(p => p.Orders)
+                      .WithOne(o => o.Profile)
+                      .HasForeignKey(o => o.ProfileId)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.ToTable("Orders");
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.ProfileId).IsRequired();
+                entity.Property(e => e.Date).IsRequired();
+                entity.Property(e => e.Status).IsRequired().HasMaxLength(50);
+                entity.Property(e => e.TotalAmount).HasColumnType("decimal(18,2)");
+
+                // PostgreSQL-specific timestamp defaults
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+                // The relationship is now defined in the Profile entity configuration
+
+                // Define relationship with Items
+                entity.HasMany(o => o.Items)
+                      .WithOne(i => i.Order)
+                      .HasForeignKey(i => i.OrderId)
+                      .OnDelete(DeleteBehavior.Cascade);
+            });
+
+            modelBuilder.Entity<Item>(entity =>
+            {
+                entity.ToTable("Items");
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
+                entity.Property(e => e.Description).HasMaxLength(500);
+                entity.Property(e => e.Price).HasColumnType("decimal(18,2)");
+                entity.Property(e => e.OrderId).IsRequired();
+
+                // PostgreSQL-specific timestamp defaults
+                entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            });
+        }
+    }
+}

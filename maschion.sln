@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D9AD4756-CB43-494D-A99C-367EBBB3CECA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "maschion.API", "src\maschion.API\maschion.API.csproj", "{B02A4E7C-BA3B-4D45-8C54-A5300BFCF4DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B32D041B-1CB9-4817-9D24-FD6F7BC488C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "maschion.API.Tests", "test\maschion.API.Tests\maschion.API.Tests.csproj", "{0138092F-9828-4C9C-B5C3-56CDE98DDC2E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B02A4E7C-BA3B-4D45-8C54-A5300BFCF4DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B02A4E7C-BA3B-4D45-8C54-A5300BFCF4DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B02A4E7C-BA3B-4D45-8C54-A5300BFCF4DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B02A4E7C-BA3B-4D45-8C54-A5300BFCF4DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0138092F-9828-4C9C-B5C3-56CDE98DDC2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0138092F-9828-4C9C-B5C3-56CDE98DDC2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0138092F-9828-4C9C-B5C3-56CDE98DDC2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0138092F-9828-4C9C-B5C3-56CDE98DDC2E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B02A4E7C-BA3B-4D45-8C54-A5300BFCF4DA} = {D9AD4756-CB43-494D-A99C-367EBBB3CECA}
+		{0138092F-9828-4C9C-B5C3-56CDE98DDC2E} = {B32D041B-1CB9-4817-9D24-FD6F7BC488C9}
+	EndGlobalSection
+EndGlobal

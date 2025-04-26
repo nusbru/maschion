@@ -1,0 +1,48 @@
+services:
+  app:
+    build:
+      context: . # Diretório atual onde está seu Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+      POSTGRES_INITDB_ARGS: ${POSTGRES_INITDB_ARGS}
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ${INIT_SCRIPTS_PATH:-./init-scripts}:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    secrets:
+      - postgres_password
+    deploy:
+      resources:
+        limits:
+          cpus: ${PG_CPU_LIMIT:-1}
+          memory: ${PG_MEMORY_LIMIT:-1G}
+
+volumes:
+  postgres_data:
+    name: ${COMPOSE_PROJECT_NAME}_postgres_data
+
+secrets:
+  postgres_password:
+    file: ./.secrets/postgres_password.txt
+
+networks:
+  "maschion-network":
+    driver: bridge
