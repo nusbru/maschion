@@ -1,4 +1,3 @@
-
-namespace maschion.API.UseCases.SignUp;
+namespace maschion.API.Features.SignUp;
 
 public record SupabaseProfile(string Email, string Password);

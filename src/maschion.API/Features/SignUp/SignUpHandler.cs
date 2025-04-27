@@ -1,14 +1,14 @@
 using maschion.API.Data;
 using maschion.API.Infrastructure;
-using maschion.API.UseCases.CreateNewCustomer;
 using Microsoft.AspNetCore.Mvc;
-namespace maschion.API.UseCases.SignUp;
+
+namespace maschion.API.Features.SignUp;
 
 public static class SignUpHandler
 {
-    internal static async Task<IResult> Handle(MaschionDbContext ctx, ISupabaseRepository supabaseRepository, [FromBody] SignUpRequest request)
+    internal static async Task<IResult> Handle(MaschionDbContext ctx, [FromServices] ISupabaseRepository supabaseRepository, [FromBody] SignUpRequest signUpRequest)
     {
-        var supabaseProfile = new SupabaseProfile(request.Email, request.Password);
+        var supabaseProfile = new SupabaseProfile(signUpRequest.Email, signUpRequest.Password);
         var profile = await supabaseRepository.SignUp(supabaseProfile);
 
         ctx.Profiles.Add(profile);
@@ -18,6 +18,4 @@ public static class SignUpHandler
         return Results.Ok(new SignUpResponse(profile.Email));
     }
 }
-
-public record SignUpResponse(string Email);
 

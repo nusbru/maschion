@@ -1,5 +1,5 @@
-using maschion.API.UseCases.SignIn;
-using maschion.API.UseCases.SignUp;
+using maschion.API.Features.SignIn;
+using maschion.API.Features.SignUp;
 
 namespace maschion.API.Endpoints;
 

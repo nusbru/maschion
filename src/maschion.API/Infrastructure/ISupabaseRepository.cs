@@ -1,6 +1,6 @@
+using maschion.API.Common.Dtos;
 using maschion.API.Domain;
-using maschion.API.UseCases.SignIn;
-using maschion.API.UseCases.SignUp;
+using maschion.API.Features.SignUp;
 
 namespace maschion.API.Infrastructure;
 
