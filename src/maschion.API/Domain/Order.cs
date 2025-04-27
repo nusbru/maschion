@@ -1,4 +1,4 @@
-namespace maschion.API.Models;
+namespace maschion.API.Domain;
 
 public class Order
 {

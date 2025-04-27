@@ -1,4 +1,4 @@
-namespace maschion.API.Models;
+namespace maschion.API.Domain;
 
 public class Profile
 {
@@ -10,6 +10,7 @@ public class Profile
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
     public Profiletype Type { get; set; }
+    public string SupabaseId { get; set; }
 
     public ICollection<Order> Orders { get; set; }
 }

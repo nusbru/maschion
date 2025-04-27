@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using maschion.API.Models;
+using maschion.API.Domain;
 
 namespace maschion.API.Data
 {
@@ -23,10 +23,11 @@ namespace maschion.API.Data
                 entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
                 entity.Property(e => e.Email).IsRequired().HasMaxLength(150);
                 entity.Property(e => e.PhoneNumber).HasMaxLength(20);
-
+                entity.Property(e => e.DateOfBirth);
+                entity.Property(e => e.SupabaseId).HasMaxLength(50);
                 // PostgreSQL-specific timestamp defaults
                 entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
-                entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.UpdatedAt);
 
                 // Define relationship with Orders (assuming you have a navigation property)
                 entity.HasMany(p => p.Orders)
@@ -47,7 +48,7 @@ namespace maschion.API.Data
 
                 // PostgreSQL-specific timestamp defaults
                 entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
-                entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.UpdatedAt);
 
                 // The relationship is now defined in the Profile entity configuration
 

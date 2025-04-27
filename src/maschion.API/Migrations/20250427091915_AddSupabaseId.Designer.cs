@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using maschion.API.Data;
@@ -11,9 +12,11 @@ using maschion.API.Data;
 namespace maschion.API.Migrations
 {
     [DbContext(typeof(MaschionDbContext))]
-    partial class MaschionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250427091915_AddSupabaseId")]
+    partial class AddSupabaseId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
