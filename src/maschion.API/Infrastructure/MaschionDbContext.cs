@@ -13,6 +13,9 @@ namespace maschion.API.Data
         public DbSet<Profile> Profiles { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<Seller> Sellers { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Profile>(entity =>
@@ -50,8 +53,6 @@ namespace maschion.API.Data
                 entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
                 entity.Property(e => e.UpdatedAt);
 
-                // The relationship is now defined in the Profile entity configuration
-
                 // Define relationship with Items
                 entity.HasMany(o => o.Items)
                       .WithOne(i => i.Order)
@@ -73,6 +74,27 @@ namespace maschion.API.Data
                 entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
                 entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
             });
+
+            modelBuilder.Entity<Seller>(entity =>
+            {
+                entity.ToTable("Sellers");
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.ProfileId).IsRequired();
+
+                entity.HasMany(o => o.Customers)
+                      .WithOne(i => i.Seller)
+                      .HasForeignKey(i => i.SellerId);
+            });
+
+            modelBuilder.Entity<Customer>(entity =>
+           {
+               entity.ToTable("Customers");
+               entity.HasKey(e => e.Id);
+
+               entity.Property(e => e.ProfileId).IsRequired();
+               entity.Property(e => e.SellerId).IsRequired();
+           });
         }
     }
 }

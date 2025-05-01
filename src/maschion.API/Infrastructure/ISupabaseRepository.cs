@@ -6,6 +6,6 @@ namespace maschion.API.Infrastructure;
 
 public interface ISupabaseRepository
 {
-    Task<(string, string)> SignIn(Credential credential);
+    Task<(string, string)> SignIn(SupabaseCredential credential);
     Task<Profile> SignUp(SupabaseProfile profile);
 }

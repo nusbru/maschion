@@ -1,4 +1,4 @@
-namespace maschion.API.Features.SignUp;
+namespace maschion.API.Common.Dtos;
 
 public record SignUpResponse(string Email);
 

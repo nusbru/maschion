@@ -6,7 +6,7 @@ namespace maschion.API.Infrastructure;
 
 public class SupabaseRepository(Supabase.Client client) : ISupabaseRepository
 {
-    public async Task<(string, string)> SignIn(Credential credential)
+    public async Task<(string, string)> SignIn(SupabaseCredential credential)
     {
         var session = await client.Auth.SignIn(credential.Email, credential.Password);
 

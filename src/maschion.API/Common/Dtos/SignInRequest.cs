@@ -1,3 +1,3 @@
-namespace maschion.API.Features.SignIn;
+namespace maschion.API.Common.Dtos;
 
 public record SignInRequest(string Email, string Password);
